@@ -26,6 +26,7 @@ A machine learning model to classify text messages as **SPAM** or **HAM** (non-s
 
    # Test it!
    predict_spam("Win a free iPhone!")  # Example
+
    📦 Files
 File	Description
 spam_classifier.pkl	Trained model (Joblib)
@@ -34,6 +35,7 @@ spam_classifier.ipynb	Colab notebook (training + demo)
 🛠️ Customization
 Train with Your Data
 Replace the dummy dataset with real data (e.g., SMS Spam Collection):
+
 import pandas as pd
 df = pd.read_csv("spam.csv")  # Your dataset
 X, y = df["text"], df["label"]
@@ -43,5 +45,7 @@ pipeline = Pipeline([
     ("tfidf", TfidfVectorizer()),
     ("clf", RandomForestClassifier())  # Swapped model
 ])
+
+
 📜 License
 MIT License - Free for personal/commercial use.
