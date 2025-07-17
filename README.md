@@ -1,57 +1,47 @@
-📌 Overview
-This project implements a spam detection system using a Logistic Regression classifier with TF-IDF text vectorization. It can predict whether a given message is spam (e.g., promotional, scam) or ham (legitimate).
+# 📧 Spam Classifier (Python + Scikit-learn)
 
-✅ Interactive testing – Input messages and get real-time predictions
-✅ Confidence scores – See how confident the model is
-✅ Google Colab-ready – Works natively in Colab
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.0%2B-orange)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-🚀 Quick Start
-1. Open in Google Colab
-▶️ Run the Notebook
+A machine learning model to classify text messages as **SPAM** or **HAM** (non-spam), built with:  
+- **TF-IDF Vectorization**  
+- **Logistic Regression**  
+- Interactive testing in **Google Colab/Jupyter**  
 
-2. Run the Interactive Classifier
-python
-# Load the model and start predicting
-predict_spam_interactive()
-Example Input/Output:
+---
 
-text
-🔮 Spam Classifier - Type 'quit' to exit  
+## ▶️ Quick Start
+1. **Open in Google Colab**:  
+   [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1BMyh7b1KQAcz94fKxc5vHf3XXdlFJgWA)
 
-Enter a message: "You won a free iPhone!"  
-🚨 SPAM (Confidence: 98.5%)  
+2. **Run the interactive classifier**:
+   ```python
+   # Load model and predict
+   def predict_spam(message):
+       model = joblib.load('spam_classifier.pkl')
+       proba = model.predict_proba([message])[0]
+       print(f"🔮 Prediction: {'🚨 SPAM' if model.predict([message])[0] == 1 else '📩 HAM'}")
+       print(f"   Confidence: {max(proba):.2%}")
 
-Enter a message: "Let's meet tomorrow"  
-📩 HAM (Confidence: 99.1%)  
-🛠️ How It Works
-Model Pipeline
-Text Vectorization: TfidfVectorizer() converts messages into numerical features.
-
-Classification: LogisticRegression() predicts spam (1) or ham (0).
-
-Training Data (Dummy Example)
-python
-X_train = ["Win cash now", "Meeting at 3 PM", "Free gift!", "Hello"]  
-y_train = [1, 0, 1, 0]  # 1=Spam, 0=Ham  
-📂 Files
+   # Test it!
+   predict_spam("Win a free iPhone!")  # Example
+   📦 Files
 File	Description
-spam_classifier.pkl	Saved trained model (Joblib format)
-spam_classifier.ipynb	Colab notebook with training & prediction code
-🔧 Customization
-Improve the Model
-Replace dummy data with a real dataset (e.g., SMS Spam Collection).
+spam_classifier.pkl	Trained model (Joblib)
+spam_classifier.ipynb	Colab notebook (training + demo)
 
-Try better models (e.g., RandomForestClassifier, SVM).
+🛠️ Customization
+Train with Your Data
+Replace the dummy dataset with real data (e.g., SMS Spam Collection):
+import pandas as pd
+df = pd.read_csv("spam.csv")  # Your dataset
+X, y = df["text"], df["label"]
 
-Add preprocessing (lowercase, stopwords removal, etc.).
-
-Deploy
-Web App: Use Flask/FastAPI to host the classifier.
-
-API: Wrap predictions in a REST endpoint.
-
+from sklearn.ensemble import RandomForestClassifier
+pipeline = Pipeline([
+    ("tfidf", TfidfVectorizer()),
+    ("clf", RandomForestClassifier())  # Swapped model
+])
 📜 License
-MIT License – Free for personal and commercial use.
-
-🎯 Made for learning purposes – Adapt and expand as needed!
-🔗 Questions? Open an issue or contribute!
+MIT License - Free for personal/commercial use.
